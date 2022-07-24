@@ -21,16 +21,21 @@ public class CategoryController {
 	@Autowired //<- Spring will wire it to CategoryRepository interface. 
 	private CategoryRepository categoryRepository; 
 	
-	@GetMapping("/hello")    //REST API: Representational State Transfer 
-	public String sayHello() {
-		return "Hello All!!! welcome to spring!";
-	}
 	
 	@PostMapping("/category")
 	public void postCategory(@RequestBody Category category) {
 		//we use JpaRepository Interface 
 		categoryRepository.save(category);
 	}
+	
+	// Example
+	
+	@GetMapping("/hello")    //REST API: Representational State Transfer 
+	public String sayHello() {
+		return "Hello All!!! welcome to spring!";
+	}
+	
+	
 	
 	@GetMapping("/category")
 	public List<Category> getAllCategories() {
