@@ -50,7 +50,7 @@ public class VendorController {
 	}
 	
 	@PutMapping("/vendor/{id}")
-	public void updateVendor (@PathVariable("id")Long id,
+	public Vendor updateVendor (@PathVariable("id")Long id,
 			@RequestBody Vendor newVendor) {
 		
 		Optional<Vendor> optional = vendorRepository.findById(id);
@@ -58,6 +58,7 @@ public class VendorController {
 			Vendor existingVendor = optional.get();
 			existingVendor.setCity(newVendor.getCity());
 			existingVendor.setName(newVendor.getName());
+			return vendorRepository.save(existingVendor);
 			
 		}
 		else

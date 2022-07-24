@@ -43,7 +43,7 @@ public class CategoryController {
 		return list; 
 	}
 	
-	@GetMapping("/category/single/{id}") //category/single/4
+	@GetMapping("/category/{id}") //category/single/4
 	public Category getSingleCategoryById(@PathVariable("id") Long id) {
 		Optional<Category> optional =  categoryRepository.findById(id);
 		if(optional.isPresent())
