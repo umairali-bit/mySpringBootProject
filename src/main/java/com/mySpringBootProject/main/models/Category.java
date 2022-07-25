@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
+@Entity //PK
 @Table(name = "categories")
 public class Category { 
 	@Id
@@ -52,7 +52,7 @@ public class Category {
 
 	public Category() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override
