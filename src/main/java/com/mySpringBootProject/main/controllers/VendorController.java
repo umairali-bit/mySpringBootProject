@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mySpringBootProject.main.models.Vendor;
-import com.mySpringBootProject.main.repository.CategoryRepository;
+
 import com.mySpringBootProject.main.repository.VendorRepository;
 
 @RestController

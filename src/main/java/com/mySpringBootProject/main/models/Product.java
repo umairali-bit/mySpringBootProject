@@ -22,10 +22,10 @@ public class Product {
 	private Double price; 
 	
 	@OneToOne
-	private Category category;
+	private Category category; //FK
 	
 	@OneToOne
-	private Vendor vendor;
+	private Vendor vendor; //FK
 
 	public Long getId() {
 		return id;
