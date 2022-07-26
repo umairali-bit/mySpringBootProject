@@ -1,5 +1,6 @@
 package com.mySpringBootProject.main.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mySpringBootProject.main.DTO.ProductDto;
 import com.mySpringBootProject.main.models.Category;
 import com.mySpringBootProject.main.models.Product;
 import com.mySpringBootProject.main.models.Vendor;
@@ -58,9 +60,37 @@ public class ProductController {
 	}
 	
 	@GetMapping("/products")
+	
+	
+	/* to return list of products
 	public List<Product> getAllProducts() {
 		List<Product> list =  productRepository.findAll();
 		return list;
+		
+		*/
+	
+	// to format it according to UI
+	public List<ProductDto>getAllProducts(){
+		List<Product> list = productRepository.findAll();
+		List<ProductDto> listDto = new ArrayList<>();
+		list.stream().forEach(p->{
+			ProductDto dto = new ProductDto();
+			dto.setId(p.getId());
+			dto.setName(p.getName());
+			dto.setPrice(p.getPrice());
+			dto.setCid(p.getCategory().getId());
+			dto.setCname(p.getCategory().getName());
+			dto.setCpref(p.getCategory().getPreference());
+			dto.setVid(p.getCategory().getId());
+			dto.setVcity(p.getVendor().getCity());
+			dto.setVname(p.getCategory().getName());
+			listDto.add(dto);
+			
+			
+		});
+		return listDto;
+	
+	
 	}
 	
 	@GetMapping("/products/category/{cid}")
