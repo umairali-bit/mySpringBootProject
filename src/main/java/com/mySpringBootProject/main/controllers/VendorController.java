@@ -38,7 +38,7 @@ public class VendorController {
 		vendorRepository.save(vendor);
 	}
 	
-	@GetMapping("/vendor") //page = 0, (1-20), 1(21-40), 2(41-60), 3(61-80)
+	@GetMapping("/vendor") //page = 0, (1-20), 1(21-40), 2(41-60), 3(61-80) [/vendor?page=0&size=3]
 	
 	
 	/* to get all the vendor in JSON format

@@ -35,8 +35,9 @@ public class CustomerProductController {
 	private ProductRepository productRepository;
 
 	@PostMapping("/customer/product/{cid}/{pid}")
-	public CustomerProduct purchaseAPi(@PathVariable("cid") Long cid, @PathVariable("pid") Long pid,
-			@RequestBody CustomerProduct cp) {
+	public CustomerProduct purchaseAPi(@PathVariable("cid") Long cid,
+									   @PathVariable("pid") Long pid,
+									   @RequestBody CustomerProduct cp) {
 
 		Optional<Customer> optionalC = customerRepository.findById(cid);
 		if(!optionalC.isPresent()) 
