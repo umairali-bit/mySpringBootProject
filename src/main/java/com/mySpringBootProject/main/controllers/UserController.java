@@ -1,15 +1,20 @@
 package com.mySpringBootProject.main.controllers;
 
 import java.security.Principal;
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.Base64;
 
+import com.mySpringBootProject.main.DTO.UserDto;
+import com.mySpringBootProject.main.DTO.UserEditDto;
 import com.mySpringBootProject.main.DTO.UserInfoDTO;
 import com.mySpringBootProject.main.models.UserInfo;
 import com.mySpringBootProject.main.repository.UserRepository;
@@ -26,12 +31,33 @@ public class UserController {
 	private PasswordEncoder passwordEncoder; 
 	
 	@PostMapping("/user")
+	
+	/*
 	public UserInfo postUser(@RequestBody UserInfo user) {
 		// check if username exisits
 		String password = user.getPassword();
 		password = passwordEncoder.encode(password);
 		user.setPassword(password);
 		return userRepository.save(user);
+	} */
+	
+	public void postUser(@RequestBody UserDto userDto) {
+		String str = new String(Base64.getDecoder().decode(userDto.getEncodedCredentials())); 
+		String username = str.split("@=")[0];
+		String password = str.split("@=")[1];
+		
+		UserInfo info = new UserInfo();
+		info.setName(userDto.getName());
+		info.setPassword(passwordEncoder.encode(password));
+		info.setUsername(username);
+		info.setPasswordLastReset(LocalDate.now());
+		info.setSecurityQuestion(userDto.getSecurityQuestion());
+		info.setSecurityAnswer(userDto.getSecurityAnswer());
+		info.setRole(userDto.getRole());
+
+		 userRepository.save(info); 
+		
+		
 	}
 	
 	@GetMapping("/login") //get username and password from spring
@@ -46,5 +72,23 @@ public class UserController {
 		
 		return dto;
 		
+	}
+	
+	@GetMapping("/user/username")
+	public UserEditDto getUserByUsername(Principal principal) {
+		
+		UserInfo info = userRepository.getByUsername(principal.getName());
+		UserEditDto dto = new UserEditDto(info.getId(), info.getName(), 
+						info.getSecurityQuestion(), info.getSecurityAnswer());
+		
+		return dto;
+		
+	}
+	
+	@PutMapping("/user/profile")
+	public void profileEdit(Principal principal, @RequestBody UserDto dto) {
+		String username = principal.getName();
+		userRepository.updateProfile(username,dto.getName(),dto.getSecurityQuestion(),
+									dto.getSecurityAnswer());
 	}
 }

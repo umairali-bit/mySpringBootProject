@@ -27,7 +27,9 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter{
 				// configure our apis as per roles
 			
 			http.authorizeRequests()
-				.antMatchers(HttpMethod.GET,"/login").authenticated() //we can use permitAll() if we dont want authentication
+				.antMatchers(HttpMethod.GET,"/login").authenticated()
+				.antMatchers(HttpMethod.GET,"/user/username").authenticated()//we can use permitAll() if we dont want authentication
+				.antMatchers(HttpMethod.GET,"/user/profile").authenticated()
 				//.antMatchers("/products").authenticated()
 				//.antMatchers("/products/category/{cid}").hasAnyAuthority("ADMIN") //has any role
 				.anyRequest().permitAll()
