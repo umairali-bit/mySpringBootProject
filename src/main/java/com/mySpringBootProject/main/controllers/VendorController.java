@@ -50,7 +50,7 @@ public class VendorController {
 	/* to limit result of vendor till 20 use pagination */
 	
 	public List<VendorDto> getAllVendors(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-									  @RequestParam(name = "size", required = false, defaultValue = "0") Integer size) {
+									  @RequestParam(name = "size", required = false, defaultValue = "10000") Integer size) {
 		
 		PageRequest pageable = PageRequest.of(page,size);
 		List <Vendor> list = vendorRepository.findAll(pageable).getContent();
@@ -96,13 +96,7 @@ public class VendorController {
 			throw new RuntimeException("ID is invalid");
 	}
 	
-	//Delete by ID
 	
-	@DeleteMapping("/vendor/{id}")
-	public void deleteVendor(@PathVariable("id")Long id){
-		vendorRepository.deleteById(id);
-		
-	}
 	
 	@PutMapping("/vendor/{id}")
 	public Vendor updateVendor (@PathVariable("id")Long id,
@@ -125,6 +119,16 @@ public class VendorController {
 	public List<Vendor> getVendorByCity(@PathVariable("city") String city) {
 		List<Vendor>list = vendorRepository.findByCity(city);
 		return list;
+	}
+	
+	
+	@DeleteMapping("/vendor/{vid}")
+	public void deleteVendor(@PathVariable("vid") Long vid) {
+		
+		productRepository.deleteProductByVendorId(vid);
+		vendorRepository.deleteById(vid);
+		
+		
 	}
 	
 	
