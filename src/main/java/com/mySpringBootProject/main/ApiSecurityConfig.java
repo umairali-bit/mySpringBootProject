@@ -31,7 +31,7 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter{
 				.antMatchers(HttpMethod.GET,"/user/username").authenticated()//we can use permitAll() if we dont want authentication
 				.antMatchers(HttpMethod.GET,"/user/profile").authenticated()
 				//.antMatchers("/products").authenticated()
-				//.antMatchers("/products/category/{cid}").hasAnyAuthority("ADMIN") //has any role
+				//.antMatchers("/products/category/{cid}").hasAnyAuthority("ADMIN","USER") //has any role
 				.anyRequest().permitAll()
 				.and().httpBasic()
 				.and().csrf().disable();

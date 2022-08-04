@@ -22,7 +22,7 @@ import com.mySpringBootProject.main.repository.ProductRepository;
 import com.mySpringBootProject.main.repository.VendorRepository;;
 
 
-@CrossOrigin(origins = {"http://localhost:4200"})
+
 @RestController
 public class ProductController {
 

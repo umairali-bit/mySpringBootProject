@@ -20,7 +20,7 @@ import com.mySpringBootProject.main.models.UserInfo;
 import com.mySpringBootProject.main.repository.UserRepository;
 
 
-@CrossOrigin(origins = {"http://localhost:4200"})
+
 @RestController
 public class UserController {
 

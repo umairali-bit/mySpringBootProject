@@ -20,7 +20,7 @@ import com.mySpringBootProject.main.DTO.EmployeeStatDto;
 import com.mySpringBootProject.main.models.Employee;
 import com.mySpringBootProject.main.repository.EmployeeRepository;
 
-@CrossOrigin(origins = {"http://localhost:4200"})
+
 @RestController
 public class EmployeeController {
 

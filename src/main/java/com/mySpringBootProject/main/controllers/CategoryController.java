@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mySpringBootProject.main.models.Category;
 import com.mySpringBootProject.main.repository.CategoryRepository;
 
-@CrossOrigin(origins = {"http://localhost:4200"})
+
 @RestController
 public class CategoryController {
 
