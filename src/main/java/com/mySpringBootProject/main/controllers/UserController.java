@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -91,4 +92,40 @@ public class UserController {
 		userRepository.updateProfile(username,dto.getName(),dto.getSecurityQuestion(),
 									dto.getSecurityAnswer());
 	}
+	
+	
+	@GetMapping("/user/security/info/{username}")
+	public UserEditDto getUserInfo(@PathVariable("username") String username) {
+		UserInfo info =userRepository.getByUsername(username);
+		UserEditDto dto = new UserEditDto(info.getId(), info.getName(), 
+				"", info.getSecurityQuestion());
+		return dto; 
+	} 
+	
+	@GetMapping("/validate-security-answer/{encodedText}")
+	public boolean verifySecurityAnswer(@PathVariable("encodedText") String encodedText) {
+		boolean status=false;
+		String str = new String(Base64.getDecoder().decode(encodedText)); 
+		//username + '--'+answer
+		String[] sarr =str.split("--");
+		String username = sarr[0]; 
+		String answer=sarr[1];
+		UserInfo info =userRepository.getByUsername(username);
+		if(info.getSecurityAnswer().equalsIgnoreCase(answer)) {
+			status=true; 
+		}
+		return status; 
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
