@@ -119,6 +119,22 @@ public class UserController {
 	
 	
 	
+	@PutMapping("/user/reset-password/{encodedText}")
+	public void resetPassword(@PathVariable("encodedText") String encodedText) {
+		boolean status=false;
+		String str = new String(Base64.getDecoder().decode(encodedText)); 
+		//username + '--'+answer
+		String[] sarr =str.split("|");
+		String username = sarr[0]; 
+		String password=sarr[1];
+
+		String encodedPassword = this.passwordEncoder.encode(password);
+		userRepository.resetPassword(username,encodedPassword,LocalDate.now());
+
+	}
+	
+	
+	
 	
 	
 	
